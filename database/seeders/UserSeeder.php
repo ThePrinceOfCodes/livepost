@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Post;
 use Illuminate\Database\Seeder;
-use Database\Seeders\traits\TruncateTable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\traits\TruncateTable;
 
-class PostSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     use TruncateTable;
     /**
@@ -17,8 +17,7 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        //
-        $this->truncate('posts');
-        Post::factory(3)->untitled()->create();
+        $this->truncate('users');
+        $users = \App\Models\User::factory(10)->create();
     }
 }
