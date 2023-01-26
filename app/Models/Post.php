@@ -20,7 +20,7 @@ class Post extends Model
 
     public function setTitleAttribute($value)
     {
-        $this->sttributes['title'] = strtolower($value);
+        $this->attributes['title'] = strtolower($value);
     }
 
     public function comments()
