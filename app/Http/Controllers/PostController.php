@@ -4,25 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Http\Resources\PostResource;
+use App\Repositories\PostRepository;
 
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return ResourceCollection
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::query()->paginate(20);
 
-        return new JsonResponse([
-            'data' => $posts
-        ]);
-
-        // return response()->json();
+        return PostResource::collection($posts);
     }
 
     /**
@@ -31,16 +30,16 @@ class PostController extends Controller
      * @param  \App\Http\Requests\StorePostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function store(StorePostRequest $request, PostRepository $postRepository)
     {
-        $created = Post::create([
-            'title' => $request->title,
-            'body' => $request->body
-        ]);
+       $created = $postRepository->create($request->only([
+            'title',
+            'body',
+            'user_ids'
+       ]));
+        
+       return new PostResource($created);
 
-        return response()->json([
-            'data' => $created
-        ]);
     }
 
     /**
@@ -51,7 +50,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return response()->json($post);
+        return new PostResource($post);
     }
 
     /**
@@ -61,22 +60,15 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post, PostRepository $postRepository)
     {
-        $updated = $post->update([
-            'title' => $request->title ?? $post->title,
-            'body' => $request->body ?? $post->body,
-        ]);
+        $updated = $postRepository->update($post, $request->only([
+            'title',
+            'body',
+            'user_ids'
+       ]));
 
-        if($updated){
-            return response()->json([
-                $updated
-            ]);
-        }
-
-        return response()->json([
-            'message' => 'error updating record',
-        ],400);
+      return new PostResource($updated);
     }
 
     /**
@@ -85,18 +77,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post, PostRepository $postRepository)
     {
-        $deleted = $post->forceDelete();
-
-        if($deleted){
-            return response()->json([
-                $deleted
-            ]);
-        }
+        $postRepository->forceDelete($post);
 
         return response()->json([
-            'message' => 'error deleting record',
-        ],400);
+            'success' => 'record deleted successfully',
+        ]);
     }
 }
