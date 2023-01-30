@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
+use App\Http\Resources\CommentResource;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
-use App\Models\Comment;
+use App\Repositories\CommentRepository;
 
 class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return ResourceCollection
      */
     public function index()
     {
-        //
+        $comments = Comment::query()->paginate(50);
+
+        return CommentResource::collection($comments);
     }
 
     /**
@@ -24,9 +28,16 @@ class CommentController extends Controller
      * @param  \App\Http\Requests\StoreCommentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCommentRequest $request)
+    public function store(StoreCommentRequest $request,CommentRepository $commentRepository)
     {
-        //
+        $created = $commentRepository->create($request->only([
+            'post',
+            'body',
+            'user_id'
+       ]));
+        
+       return new CommentResource($created);
+
     }
 
     /**
@@ -37,7 +48,7 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        return new CommentResource($comment);
     }
 
     /**
@@ -47,9 +58,15 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCommentRequest $request, Comment $comment)
+    public function update(UpdateCommentRequest $request, Comment $comment, CommentRepository $commentRepository)
     {
-        //
+        $updated = $commentRepository->update($comment, $request->only([
+            'post_id',
+            'body',
+            'user_id'
+       ]));
+
+      return new CommentResource($updated);
     }
 
     /**
@@ -58,8 +75,13 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(Comment $comment, CommentRepository $commentRepository)
     {
-        //
+        $commentRepository->forceDelete($comment);
+
+        return response()->json([
+            'success' => 'record deleted successfully',
+        ]);
     }
 }
+
