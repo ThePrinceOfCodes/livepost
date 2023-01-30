@@ -18,6 +18,8 @@ class CommentRepository extends BaseRepository
 
             ]);
 
+          throw_if(!$created, GeneralJsonExecption::class, 'failed to create comment');
+
            return $created;
         });
     }
@@ -31,9 +33,8 @@ class CommentRepository extends BaseRepository
                 'body' => data_get($attributes, 'body')
             ]);
 
-            if(!$updated){
-                throw new Exception('Failed to update Comment');
-            }
+            throw_if(!$updated, GeneralJsonExecption::class, 'comment cannot be updated');
+
 
             // if($userIds = data_get($attributes, 'user_ids')){
             //     $Comment->users()->sync($userIds);
@@ -47,9 +48,8 @@ class CommentRepository extends BaseRepository
         return DB::transaction(function () use($comment){
             $deleted = $comment->forceDelete();  
         
-            if(!$deleted){
-                throw new Exception('cannot delete Comment');
-            }
+            throw_if(!$deleted, GeneralJsonExecption::class, 'cannot delete this comment');
+
 
             return $deleted;
         });
