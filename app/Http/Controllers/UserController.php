@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Models\User;
+use App\Repositories\UserRepository;
 
 class UserController extends Controller
 {
@@ -13,9 +16,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $users = User::query()->paginate($request->page_size ?? 20);
+
+        return UserResource::collection($users);
     }
 
     /**
@@ -24,9 +29,14 @@ class UserController extends Controller
      * @param  \App\Http\Requests\StoreUserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request, UserRepository $userRepository)
     {
-        //
+        $created = $userRepository->create($request->only([
+            'email',
+            'name',
+       ]));
+        
+       return new UserResource($created);
     }
 
     /**
@@ -35,9 +45,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $User
      * @return \Illuminate\Http\Response
      */
-    public function show(User $User)
+    public function show(User $user)
     {
-        //
+        return new UserResource($user);
     }
 
     /**
@@ -47,9 +57,14 @@ class UserController extends Controller
      * @param  \App\Models\User  $User
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, User $User)
+    public function update(UpdateUserRequest $request, User $user, UserRepository $userRepository)
     {
-        //
+        $updated = $userRepository->update($user, $request->only([
+            'email',
+            'name',
+       ]));
+
+       return new UserResource($updated);
     }
 
     /**
@@ -58,8 +73,12 @@ class UserController extends Controller
      * @param  \App\Models\User  $User
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $User)
+    public function destroy(User $user, UserRepository $userRepository)
     {
-        //
+        $userRepository->forceDelete($user);
+
+        return response()->json([
+            'success' => 'record deleted successfully',
+        ]);
     }
 }
