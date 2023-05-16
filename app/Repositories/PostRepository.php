@@ -30,8 +30,8 @@ class PostRepository extends BaseRepository
     {
         return DB::transaction(function () use($post, $attributes){
             $updated = $post->update([
-                'title' => data_get($attributes, 'title', 'untitled'),
-                'body' => data_get($attributes, 'body')
+                'title' => data_get($attributes, 'title', $post->title),
+                'body' => data_get($attributes, 'body', $post->body)
             ]);
 
             throw_if(!$updated, GeneralJsonExecption::class, 'failed to update post');
@@ -41,6 +41,8 @@ class PostRepository extends BaseRepository
                 $post->users()->sync($userIds);
             }
         });
+
+        return $post;
         
     }
 
