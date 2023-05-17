@@ -13,7 +13,7 @@ class CommentRepository extends BaseRepository
         return DB::transaction(function () use ($attributes){
             $created = Comment::create([
                 'user_id' => data_get($attributes, 'user_id'),
-                'Comment_id' => data_get($attributes, 'Comment_id'),
+                'post_id' => data_get($attributes, 'post_id'),
                 'body' => data_get($attributes, 'body')
 
             ]);
@@ -24,12 +24,12 @@ class CommentRepository extends BaseRepository
         });
     }
 
-    public function update($Comment, array $attributes)
+    public function update($comment, array $attributes)
     {
-        return DB::transaction(function () use($Comment, $attributes){
-            $updated = $Comment->update([
+        return DB::transaction(function () use($comment, $attributes){
+            $updated = $comment->update([
                 'user_id' => data_get($attributes, 'user_id'),
-                'Comment_id' => data_get($attributes, 'Comment_id'),
+                'post_id' => data_get($attributes, 'post_id'),
                 'body' => data_get($attributes, 'body')
             ]);
 
@@ -39,6 +39,8 @@ class CommentRepository extends BaseRepository
             // if($userIds = data_get($attributes, 'user_ids')){
             //     $Comment->users()->sync($userIds);
             // }
+
+            return $updated;
         });
         
     }

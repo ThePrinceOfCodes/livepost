@@ -40,9 +40,11 @@ class PostRepository extends BaseRepository
             if($userIds = data_get($attributes, 'user_ids')){
                 $post->users()->sync($userIds);
             }
+
+            return $post;
+
         });
 
-        return $post;
         
     }
 
