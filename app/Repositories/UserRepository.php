@@ -40,6 +40,8 @@ class UserRepository extends BaseRepository
             if($userIds = data_get($attributes, 'user_ids')){
                 $User->users()->sync($userIds);
             }
+
+            return $updated;
         });
         
     }

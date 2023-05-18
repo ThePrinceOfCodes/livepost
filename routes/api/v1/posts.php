@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 // Route::resource('posts', postController::class);
 
-Route::middleware(['auth'])->name('posts.')->group(function(){
+Route::name('posts.')->group(function(){
     Route::get('/posts', [postController::class, 'index'])->name('index')->withoutMiddleware(['auth']);
     Route::get('/posts/{post}', [postController::class, 'show'])->name('show')->where('post', '[0-9]+');
     Route::post('/posts', [postController::class, 'store'])->name('store');

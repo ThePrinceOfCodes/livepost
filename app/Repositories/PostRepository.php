@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Events\PostCreated;
 use App\Exceptions\GeneralJsonExecption;
 use Exception;
 use App\Models\Post;
@@ -19,6 +20,7 @@ class PostRepository extends BaseRepository
 
             throw_if(!$created, GeneralJsonExecption::class, 'failed to create post');
 
+            event(new PostCreated($created));
             if($userIds = data_get($attributes, 'user_ids')){
                 $created->users()->sync($userIds);
             }
@@ -40,9 +42,11 @@ class PostRepository extends BaseRepository
             if($userIds = data_get($attributes, 'user_ids')){
                 $post->users()->sync($userIds);
             }
+
+            return $post;
+
         });
 
-        return $post;
         
     }
 
