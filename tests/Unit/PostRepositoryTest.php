@@ -5,9 +5,12 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\Post;
 use App\Repositories\PostRepository;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PostRepositoryTest extends TestCase
 {
+    use RefreshDatabase;
+    
     public function test_create()
     {
         $repository = $this->app->make(PostRepository::class);

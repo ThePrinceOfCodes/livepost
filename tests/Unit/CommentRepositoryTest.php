@@ -3,19 +3,26 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use App\Models\Post;
+use App\Models\User;
 use App\Models\Comment;
 use App\Repositories\CommentRepository;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CommentRepositoryTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_create()
     {
         $repository = $this->app->make(CommentRepository::class);
+        $user = User::factopry()->create();
+        $post = Post::factory()->create();
 
         $payload = [
             'body' => 'heyaa',
-            'user_id' => 1,
-            'post_id' => 1
+            'user_id' => $user->id,
+            'post_id' => $post->id
             
         ];
 
