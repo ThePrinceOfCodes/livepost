@@ -39,6 +39,7 @@ class PostRepository extends BaseRepository
             ]);
 
             throw_if(!$updated, GeneralJsonExecption::class, 'failed to update post');
+            
             event(new PostUpdated($updated));
 
             if($userIds = data_get($attributes, 'user_ids')){

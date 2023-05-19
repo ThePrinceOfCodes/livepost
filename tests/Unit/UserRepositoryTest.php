@@ -35,6 +35,7 @@ class userRepositoryTest extends TestCase
         $payload = [
             'email' => 'princej@gmail.com',
             'name' => $dummyUser->name,
+            'password' => 'secret'
         ];
 
         $updated = $repository->update($dummyUser, $payload);
