@@ -13,7 +13,7 @@ class StorePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,26 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => ['string','required'],
+            'body' =>  ['string','required'],
+            'user_ids' => [
+                'array',
+                'required', 
+                function($attribute, $value, $fail){
+                    $integerOnly = collect($value)->every(fn ($element) => is_int($element));
+
+                    if(!$integerOnly){
+                        $fail($attribute.'array value should only be integer');
+                    }
+                }
+            ]
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'body.required' => "please enter a value for body"
         ];
     }
 }

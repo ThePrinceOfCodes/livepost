@@ -2,11 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Events\PostCreated;
-use App\Exceptions\GeneralJsonExecption;
 use Exception;
 use App\Models\Post;
+use App\Events\PostCreated;
+use App\Events\PostDeletedEvent;
+use App\Events\PostUpdated;
 use Illuminate\Support\Facades\DB;
+use App\Exceptions\GeneralJsonExecption;
 
 class PostRepository extends BaseRepository
 {
@@ -37,7 +39,8 @@ class PostRepository extends BaseRepository
             ]);
 
             throw_if(!$updated, GeneralJsonExecption::class, 'failed to update post');
-
+            
+            event(new PostUpdated($updated));
 
             if($userIds = data_get($attributes, 'user_ids')){
                 $post->users()->sync($userIds);
@@ -56,6 +59,7 @@ class PostRepository extends BaseRepository
             $deleted = $post->forceDelete();  
         
             throw_if(!$deleted, GeneralJsonExecption::class, 'cannot delete this post');
+            event(new PostDeletedEvent($deleted));
 
             return $deleted;
         });

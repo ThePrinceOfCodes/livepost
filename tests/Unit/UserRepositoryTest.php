@@ -5,9 +5,12 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class userRepositoryTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_create()
     {
         $repository = $this->app->make(UserRepository::class);
@@ -15,6 +18,7 @@ class userRepositoryTest extends TestCase
         $payload = [
             'name' => 'Ebuka eze',
             'email' => 'prince@gmail.com',
+            'password' => 'secret'
         ];
 
         $result = $repository->create($payload);
@@ -31,6 +35,7 @@ class userRepositoryTest extends TestCase
         $payload = [
             'email' => 'princej@gmail.com',
             'name' => $dummyUser->name,
+            'password' => 'secret'
         ];
 
         $updated = $repository->update($dummyUser, $payload);
