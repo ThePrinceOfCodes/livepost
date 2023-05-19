@@ -166,7 +166,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the comment.'
-        example: 4
+        example: 8
         required: true
         schema:
           type: integer
@@ -185,7 +185,7 @@ paths:
         in: path
         name: comment_id
         description: 'The ID of the comment.'
-        example: 8
+        example: 20
         required: true
         schema:
           type: integer
@@ -193,8 +193,18 @@ paths:
     get:
       summary: 'Display a listing of the resource.'
       operationId: displayAListingOfTheResource
-      description: ''
-      parameters: []
+      description: 'Gets a list of users'
+      parameters:
+        -
+          in: query
+          name: page_size
+          description: 'Size per page. Defaults to 20'
+          example: 14
+          required: false
+          schema:
+            type: integer
+            description: 'Size per page. Defaults to 20'
+            example: 14
       responses:
         200:
           description: ''
@@ -227,7 +237,7 @@ paths:
                         label: 'Next &raquo;'
                         active: false
                     path: 'http://localhost/api/V1/users'
-                    per_page: 20
+                    per_page: 14
                     to: null
                     total: 0
                 properties:
@@ -293,7 +303,7 @@ paths:
                         example: 'http://localhost/api/V1/users'
                       per_page:
                         type: integer
-                        example: 20
+                        example: 14
                       to:
                         type: string
                         example: null
@@ -321,15 +331,15 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: sed
+                  example: quis
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: hills.rowena@example.org
+                  example: lucious35@example.org
                 password:
                   type: string
                   description: ''
-                  example: dignissimos
+                  example: nam
               required:
                 - name
                 - email
@@ -371,7 +381,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the user.'
-        example: 13
+        example: 20
         required: true
         schema:
           type: integer
@@ -390,7 +400,7 @@ paths:
         in: path
         name: user_id
         description: 'The ID of the user.'
-        example: 7
+        example: 18
         required: true
         schema:
           type: integer
@@ -526,11 +536,11 @@ paths:
                 title:
                   type: string
                   description: ''
-                  example: mollitia
+                  example: facilis
                 body:
                   type: string
                   description: ''
-                  example: vero
+                  example: repudiandae
                 user_ids:
                   type: object
                   description: ''
@@ -555,7 +565,7 @@ paths:
               schema:
                 type: object
                 example:
-                  message: 'No query results for model [App\Models\Post] 1'
+                  message: 'No query results for model [App\Models\Post] 8'
                   exception: Symfony\Component\HttpKernel\Exception\NotFoundHttpException
                   file: '/home/prince/Desktop/react projects/livepost/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php'
                   line: 391
@@ -911,7 +921,7 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: 'No query results for model [App\Models\Post] 1'
+                    example: 'No query results for model [App\Models\Post] 8'
                   exception:
                     type: string
                     example: Symfony\Component\HttpKernel\Exception\NotFoundHttpException
@@ -1307,7 +1317,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the post.'
-        example: 1
+        example: 8
         required: true
         schema:
           type: integer
@@ -1326,7 +1336,7 @@ paths:
         in: path
         name: post_id
         description: 'The ID of the post.'
-        example: 16
+        example: 1
         required: true
         schema:
           type: integer

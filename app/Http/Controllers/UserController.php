@@ -9,12 +9,22 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\UserRepository;
 
+
+/*
+*@group User Management
+*API's to manage user resourses
+*/ 
+
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * Gets a list of users
+     * 
+     * @queryParam page_size int Size per page. Defaults to 20
+     * 
+     * @return ResourceCollection
      */
     public function index(Request $request)
     {

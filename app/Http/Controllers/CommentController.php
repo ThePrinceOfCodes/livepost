@@ -8,6 +8,11 @@ use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Repositories\CommentRepository;
 
+/*
+*@group Comment Management
+*API's to manage Comment resourses
+*/ 
+
 class CommentController extends Controller
 {
     /**

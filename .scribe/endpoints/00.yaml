@@ -63,11 +63,11 @@ endpoints:
         name: id
         description: 'The ID of the comment.'
         required: true
-        example: 4
+        example: 8
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 4
+      id: 8
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -140,11 +140,11 @@ endpoints:
         name: id
         description: 'The ID of the comment.'
         required: true
-        example: 19
+        example: 15
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 19
+      id: 15
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -178,11 +178,11 @@ endpoints:
         name: comment_id
         description: 'The ID of the comment.'
         required: true
-        example: 8
+        example: 20
         type: integer
         custom: []
     cleanUrlParameters:
-      comment_id: 8
+      comment_id: 20
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -205,7 +205,7 @@ endpoints:
       subgroup: ''
       subgroupDescription: ''
       title: 'Display a listing of the resource.'
-      description: ''
+      description: 'Gets a list of users'
       authenticated: false
       custom: []
     headers:
@@ -213,15 +213,23 @@ endpoints:
       Accept: application/json
     urlParameters: []
     cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
+    queryParameters:
+      page_size:
+        name: page_size
+        description: 'Size per page. Defaults to 20'
+        required: false
+        example: 14
+        type: integer
+        custom: []
+    cleanQueryParameters:
+      page_size: 14
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
     responses:
       -
         status: 200
-        content: '{"data":[],"links":{"first":"http:\/\/localhost\/api\/V1\/users?page=1","last":"http:\/\/localhost\/api\/V1\/users?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":null,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","active":false},{"url":"http:\/\/localhost\/api\/V1\/users?page=1","label":"1","active":true},{"url":null,"label":"Next &raquo;","active":false}],"path":"http:\/\/localhost\/api\/V1\/users","per_page":20,"to":null,"total":0}}'
+        content: '{"data":[],"links":{"first":"http:\/\/localhost\/api\/V1\/users?page=1","last":"http:\/\/localhost\/api\/V1\/users?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":null,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","active":false},{"url":"http:\/\/localhost\/api\/V1\/users?page=1","label":"1","active":true},{"url":null,"label":"Next &raquo;","active":false}],"path":"http:\/\/localhost\/api\/V1\/users","per_page":14,"to":null,"total":0}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -257,11 +265,11 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: 13
+        example: 20
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 13
+      id: 20
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -308,27 +316,27 @@ endpoints:
         name: name
         description: ''
         required: true
-        example: sed
+        example: quis
         type: string
         custom: []
       email:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: hills.rowena@example.org
+        example: lucious35@example.org
         type: string
         custom: []
       password:
         name: password
         description: ''
         required: true
-        example: dignissimos
+        example: nam
         type: string
         custom: []
     cleanBodyParameters:
-      name: sed
-      email: hills.rowena@example.org
-      password: dignissimos
+      name: quis
+      email: lucious35@example.org
+      password: nam
     fileParameters: []
     responses: []
     responseFields: []
@@ -358,11 +366,11 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: 8
+        example: 12
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 8
+      id: 12
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -396,11 +404,11 @@ endpoints:
         name: user_id
         description: 'The ID of the user.'
         required: true
-        example: 7
+        example: 18
         type: integer
         custom: []
     cleanUrlParameters:
-      user_id: 7
+      user_id: 18
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -475,11 +483,11 @@ endpoints:
         name: id
         description: 'The ID of the post.'
         required: true
-        example: 1
+        example: 8
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 1
+      id: 8
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -490,7 +498,7 @@ endpoints:
         status: 404
         content: |-
           {
-              "message": "No query results for model [App\\Models\\Post] 1",
+              "message": "No query results for model [App\\Models\\Post] 8",
               "exception": "Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException",
               "file": "/home/prince/Desktop/react projects/livepost/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php",
               "line": 391,
@@ -942,14 +950,14 @@ endpoints:
         name: title
         description: ''
         required: true
-        example: mollitia
+        example: facilis
         type: string
         custom: []
       body:
         name: body
         description: ''
         required: true
-        example: vero
+        example: repudiandae
         type: string
         custom: []
       user_ids:
@@ -960,8 +968,8 @@ endpoints:
         type: object
         custom: []
     cleanBodyParameters:
-      title: mollitia
-      body: vero
+      title: facilis
+      body: repudiandae
       user_ids: []
     fileParameters: []
     responses: []
@@ -992,11 +1000,11 @@ endpoints:
         name: id
         description: 'The ID of the post.'
         required: true
-        example: 8
+        example: 7
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 8
+      id: 7
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1030,11 +1038,11 @@ endpoints:
         name: post_id
         description: 'The ID of the post.'
         required: true
-        example: 16
+        example: 1
         type: integer
         custom: []
     cleanUrlParameters:
-      post_id: 16
+      post_id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []

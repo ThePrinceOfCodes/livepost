@@ -11,6 +11,11 @@ use App\Repositories\PostRepository;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 
+/*
+*@group Post Management
+*API's to manage Post resourses
+*/ 
+
 class PostController extends Controller
 {
     /**
